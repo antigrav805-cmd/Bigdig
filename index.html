@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Big Dig — сборки</title>
+<style>
+  :root { color-scheme: dark; --bg:#121216; --card:#1d1d24; --text:#e9e6df; --muted:#9a968e; --accent:#e0a84a; }
+  body { margin:0; background:var(--bg); color:var(--text); font:16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width:560px; margin:0 auto; padding:28px 16px 48px; }
+  h1 { font-size:26px; margin:0 0 4px; }
+  .sub { color:var(--muted); margin:0 0 24px; font-size:14px; }
+  a.v { display:block; background:var(--card); border-radius:12px; padding:16px; margin:0 0 12px; color:inherit; text-decoration:none; border:1px solid #2a2a33; }
+  a.v:active { border-color:var(--accent); }
+  .row { display:flex; justify-content:space-between; align-items:baseline; gap:12px; }
+  .name { font-weight:600; font-size:18px; }
+  .new { color:#121216; background:var(--accent); border-radius:6px; padding:1px 7px; font-size:12px; font-weight:700; margin-left:6px; }
+  .date { color:var(--muted); font-size:13px; white-space:nowrap; }
+  .notes { color:var(--muted); font-size:14px; margin-top:6px; }
+  .tip { color:var(--muted); font-size:13px; margin-top:28px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Big Dig</h1>
+  <p class="sub">Тестовые сборки. Новая версия — сверху. Первая загрузка около 50 МБ, лучше по Wi-Fi.</p>
+  <div id="list"></div>
+  <p class="tip">Управление: касание левой и правой половины экрана — руль. Если игра не обновилась, обновите страницу.</p>
+</main>
+<script>
+  // Новая версия — первой строкой.
+  const versions = [
+    { dir: "v1", name: "v1", date: "11.11.2026",
+      notes: "Порода из шариков на пружинках (ветка dem-particles). Исправлен всплеск обломков при обвалах." },
+  ];
+  const list = document.getElementById("list");
+  versions.forEach((v, i) => {
+    const a = document.createElement("a");
+    a.className = "v";
+    a.href = v.dir + "/";
+    a.innerHTML = '<div class="row"><span class="name"></span><span class="date"></span></div><div class="notes"></div>';
+    a.querySelector(".name").textContent = v.name;
+    if (i === 0) {
+      const b = document.createElement("span");
+      b.className = "new"; b.textContent = "новая";
+      a.querySelector(".name").appendChild(b);
+    }
+    a.querySelector(".date").textContent = v.date;
+    a.querySelector(".notes").textContent = v.notes;
+    list.appendChild(a);
+  });
+</script>
+</body>
+</html>
